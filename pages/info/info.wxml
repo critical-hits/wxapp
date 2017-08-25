@@ -23,18 +23,13 @@
         </view>
         <view class="weui-cells__title">收集信息</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="输入" />
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
+            <view wx:for="{{list_item}}" wx:key="id" class="weui-cell weui-cell_input">
                 <view class="weui-cell__bd">
                     <input class="weui-input" placeholder="输入" />
                 </view>
             </view>
             <view class="weui-cell weui-cell_link">
-                <view class="weui-cell__bd">添加更多</view>
+                <view class="weui-cell__bd" bindtap="addItem">添加更多</view>
             </view>
         </view>
         <view class="weui-cells__title"></view>
@@ -44,13 +39,13 @@
             <view class="weui-cell__hd">
                 <view class="weui-label">截止时间</view>
             </view>
-            <view  style="width:23%;"></view>
-                <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-                    <view class="weui-input">{{date}}</view>
+            <view  style="width:15%;"></view>
+                <picker mode="date" value="{{date}}" start="{{date}}"  bindchange="bindDateChange">
+                    <view class="weui-input">{{date_select}}</view>
                 </picker>
             <view  style="width:8%;"></view>
-                <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-                    <view class="weui-input">{{time}}</view>
+                <picker mode="time" value="{{time}}" start="{{time}}"  bindchange="bindTimeChange">
+                    <view class="weui-input">{{time_select}}</view>
                 </picker>
         </view>
 
