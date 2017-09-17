@@ -281,9 +281,9 @@ def info_check():
     uid = get_uid(nickname)
     db = get_connection()
     insertSql = "INSERT INTO request (id,openid,nickname,collect,time,icon," \
-                "deadline,type,title,des) " \
+                "deadline,title,des,pic) " \
                 "VALUES ('%s','%s','%s','%s',now(),'%s','%s','%s','%s','%s');" \
-                % (id, uid, nickname.encode('utf8'), collect, icon, deadline, pri, title, des)
+                % (id, uid, nickname.encode('utf8'), collect, icon, deadline,title,des,pic)
     print insertSql
     db.set_character_set('utf8')
     db.cursor().execute(insertSql)
