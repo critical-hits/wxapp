@@ -277,6 +277,7 @@ def info_check():
     deadline = request.json['deadline']
     des = request.json['des']
     id=request.json['id']
+    pic=request.json['pic']
     pri = 0  # pri = request.json['pri']
     uid = get_uid(nickname)
     db = get_connection()
