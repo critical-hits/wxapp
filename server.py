@@ -1,5 +1,7 @@
 # coding=utf-8
 import datetime
+import os
+
 from flask import Flask, g, request, jsonify, json
 import csv
 import MySQLdb
@@ -12,7 +14,12 @@ from email.mime.multipart import MIMEMultipart
 from email.utils import parseaddr, formataddr
 import smtplib
 
+UPLOAD_FOLDER = 'upload/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif','JPEG','JPG','PNG'])
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 r = redis.Redis(host="localhost")
 smtp_server = "smtp.163.com"
 from_addr = "wxapp_jixie@163.com"
@@ -39,7 +46,7 @@ def info():
     collect = request.json['collect']
     requestid = request.json['id']
     pri = 0  # pri = request.json['pri']
-    uid = get_uid(nickname)
+    uid =get_uid(nickname)
     # deadline=query_db("select deadline from info where id='%s'" %(requestid))
     # if(timestamp>format_time(deadline)):
     #     return 'timeout'
@@ -276,7 +283,22 @@ def info_check():
     db.cursor().close()
     return id
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+@app.route('/upload-file', methods=['GET', 'POST'])
+def upload_file():
+    requestid=request.form['requestid']
+    nickname=request.form['nickname']
+    num=request.form['i']
+    print 'num:',num
+    id=get_uid(nickname)
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        type=file.filename.split('.')[1]
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], requestid+"-"+id+'-'+num+'.'+type))
+    return 'success'
 
 
 
@@ -364,14 +386,6 @@ def datetime_toString(dt):
 
 def string_toDatetime(string):
     return datetime.strptime(string, "%Y-%m-%d %H-%M")
-
-
-def save_data():
-    pass
-
-
-def get_data():
-    pass
 
 
 def get_openid(code):
