@@ -2,7 +2,7 @@
 import datetime
 import os
 
-from flask import Flask, g, request, jsonify, json
+from flask import Flask, g, session,request, jsonify, json, send_from_directory
 import csv
 import MySQLdb
 import redis
@@ -19,7 +19,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif','JPEG','JPG','PNG'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+app.secret_key='123'
 r = redis.Redis(host="localhost")
 smtp_server = "smtp.163.com"
 from_addr = "wxapp_jixie@163.com"
@@ -46,14 +46,15 @@ def info():
     collect = request.json['collect']
     requestid = request.json['id']
     pri = 0  # pri = request.json['pri']
+    pic=request.json['pic']
     uid =get_uid(nickname)
     # deadline=query_db("select deadline from info where id='%s'" %(requestid))
     # if(timestamp>format_time(deadline)):
     #     return 'timeout'
 
-    insertSql = "INSERT INTO info (openid,nickname,collect,time,icon,requestid) " \
-                "VALUES ('%s','%s','%s','%s','%s','%s');" \
-                % (uid, nickname.encode('utf8'), collect, timestamp, icon, requestid)
+    insertSql = "INSERT INTO info (openid,nickname,collect,time,icon,requestid,pic) " \
+                "VALUES ('%s','%s','%s','%s','%s','%s','%s');" \
+                % (uid, nickname.encode('utf8'), collect, timestamp, icon, requestid,pic)
     print insertSql
     db.set_character_set('utf8')
     db.cursor().execute(insertSql)
@@ -231,16 +232,23 @@ def detail_get():
     cursor.execute(sql)
     data = cursor.fetchone()
     cursor.execute(sql2)
-    col = cursor.fetchone()[2]
+    data2 = cursor.fetchone()
     result = {}
     result['avatar'] = data[5]
     result['nickname'] = data[6]
     result['info'] = data[2]
-    result['col'] = col
+    result['pic_info']=data[4]
+    result['pic']=data2[10]
+    result['col'] = data2[2]
     print result
     cursor.close()
     return json.dumps(result)
 
+
+@app.route("/download_pic/<requestid>/<nickname>/<filename>", methods=['GET'])
+def download_pic(requestid,nickname,filename):
+    directory =app.config['UPLOAD_FOLDER']+'/'+requestid+'/'+nickname
+    return send_from_directory(directory, filename, as_attachment=True)
 
 @app.route('/info-collect', methods=['POST', 'GET'])
 def info_collect():
@@ -292,12 +300,16 @@ def upload_file():
     requestid=request.form['requestid']
     nickname=request.form['nickname']
     num=request.form['i']
+    path=app.config['UPLOAD_FOLDER']+'/'+requestid+'/'+nickname
+    isExists=os.path.exists(path)
+    if not isExists:
+        os.makedirs(path)
     print 'num:',num
     id=get_uid(nickname)
     file = request.files['file']
     if file and allowed_file(file.filename):
         type=file.filename.split('.')[1]
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], requestid+"-"+id+'-'+num+'.'+type))
+        file.save(os.path.join(path, num+'.'+type))
     return 'success'
 
 
