@@ -441,6 +441,7 @@ def push_service():
     return "success"
 
 def loopfunc():
+
     import time
     """
     取出数据然后直接确认
@@ -452,10 +453,10 @@ def loopfunc():
 
 def push():
     import time
-    db = get_connection()
+    db = connect_db()
     timestamp=time.time()
     sql = "select * from push" \
-          " where (pushtime-%d)>=0 and (pushtime-%d)<=600" % (timestamp)
+          " where (pushtime-%d)>=0 and (pushtime-%d)<=120" % (timestamp,timestamp)
     db.set_character_set('utf8')
     cursor = db.cursor()
     cursor.execute(sql)
@@ -468,6 +469,7 @@ def push():
                   '&appid=wx5ea5e1393e7bb824&' \
                   'secret=d22572d8c73ac4cc361788a0d66a3fe8'
     token=requests.get(token_url).json()[ "access_token"]
+    print token
     for i in data:
         openid=i[0]
         formid=i[1]
@@ -480,7 +482,7 @@ def push():
           'template_id': 'G9HCxPV2b28rLADJHRwWycmUge15CE1o3pw91Gwuzak',
           'page':url,
           'form_id': formid,
-          'value': {
+          'data': {
             "keyword1": {
               "value": '填写模板内容',
               "color": "#4a4a4a"
@@ -503,7 +505,8 @@ def push():
         }
         l='https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send' \
           '?access_token=%s'%(token)
-        r=requests.post(url=l,data=data)
+        print data
+        r=requests.post(url=l,json=data)
         print r.text
     cursor.close()
 
