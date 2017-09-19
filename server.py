@@ -142,7 +142,7 @@ def info_get():
     print request.json
     uid = get_uid(request.json['nickname'])
     print 'uid', uid
-    sql = "select * from request"
+    sql = "select * from request order by deadline"
     db.set_character_set('utf8')
     cursor = db.cursor()
     cursor.execute(sql)
@@ -283,8 +283,8 @@ def info_check():
     uid = get_uid(nickname)
     db = get_connection()
     insertSql = "INSERT INTO request (id,openid,nickname,collect,time,icon," \
-                "deadline,title,des,pic) " \
-                "VALUES ('%s','%s','%s','%s',now(),'%s','%s','%s','%s','%s');" \
+                "deadline,title,des,pic,type) " \
+                "VALUES ('%s','%s','%s','%s',now(),'%s','%s','%s','%s','%s','0');" \
                 % (id, uid, nickname.encode('utf8'), collect, icon, deadline,title,des,pic)
     print insertSql
     db.set_character_set('utf8')
@@ -448,27 +448,28 @@ def loopfunc():
     :param msg:
     :return:
     """
-    print '当前时刻：', time.time(), '定时任务'
+    print '当前时刻：', int(time.time()), '定时任务'
     push()
 
 def push():
     import time
     db = connect_db()
-    timestamp=time.time()
+    timestamp=int(time.time())
     sql = "select * from push" \
-          " where (pushtime-%d)>=0 and (pushtime-%d)<=120" % (timestamp,timestamp)
+          " where (pushtime-%d)>=0 and (pushtime-%d)<60" % (timestamp,timestamp)
     db.set_character_set('utf8')
     cursor = db.cursor()
     cursor.execute(sql)
     data = cursor.fetchall()
-    print 'loopfunc',data
     if data is None or len(data)==0:
         return
+
+    print 'loopfunc',data
     token_url='https://api.weixin.qq.com/cgi-bin/token' \
                   '?grant_type=client_credential' \
                   '&appid=wx5ea5e1393e7bb824&' \
                   'secret=d22572d8c73ac4cc361788a0d66a3fe8'
-    token=requests.get(token_url).json()[ "access_token"]
+    token=requests.get(token_url,verify=False).json()[ "access_token"]
     print token
     for i in data:
         openid=i[0]
@@ -501,12 +502,12 @@ def push():
             }
           },
           'color': '#ccc',
-          'emphasis_keyword': 'keyword1.DATA'
+          # 'emphasis_keyword': 'keyword1.DATA'
         }
         l='https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send' \
           '?access_token=%s'%(token)
         print data
-        r=requests.post(url=l,json=data)
+        r=requests.post(url=l,json=data,verify=False)
         print r.text
     cursor.close()
 
@@ -538,7 +539,6 @@ def connect_db():
 
 @app.before_request
 def before_request():
-    print 'before request'
     g.db = connect_db()
 
 
@@ -561,8 +561,38 @@ def get_connection():
         db = g._db = connect_db()
     return db
 
+class push_task(object):
+
+    def __init__(self,interval,function):
+        self._t=None
+        self.interval=interval
+        self.function=function
+
+    def start(self):
+
+        if self._t is None:
+            self._t=Timer(self.interval,self._run)
+            self._t.start()
+        else:
+            raise  Exception("timer already run")
+
+    def _run(self):
+        import time
+        print  time.time(),'定时任务'
+        self.function()
+        self._t=Timer(self.interval,self._run)
+        self._t.start()
+
+
+    def stop(self):
+        if self._t is not None:
+            self._t.cancel()
+            self._t=None
 
 if __name__ == '__main__':
-    Timer(120, loopfunc, ()).start()
-    app.run(host='0.0.0.0', debug=True)
+    task=push_task(60,push)
+    task.start()
+    # Timer(60, loopfunc, ()).start()
+    app.run(host='0.0.0.0', debug=False)
+    task.stop()
     # write_csv(['1','2','3'],[[11,22,33],[33,44,55]],'test')
