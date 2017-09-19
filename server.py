@@ -25,7 +25,6 @@ r = redis.Redis(host="localhost")
 smtp_server = "smtp.163.com"
 from_addr = "wxapp_jixie@163.com"
 password = "qwert1234"
-vote_list=dict()
 
 @app.route('/')
 def hello_world():
@@ -65,23 +64,20 @@ def info():
 
 @app.route('/vote', methods=['POST', 'GET'])
 def vote():
-    vote = request.json['vote']
-    print vote
+    print request.json
+    db = get_connection()
+    target = request.json['vote']
     requestid = request.json['id']
     nickname = request.json['nickname']
     avatar = request.json['avatar']
-    list_u=vote_list.get(requestid)
-    get_uid(nickname)
-    select=requestid+":"+vote
-    count = r.get(select)
-    r.lpush(requestid,nickname)
-    if count:
-        tmp=int(count) + 1
-        r.set(select, tmp)
-    else:
-        r.set(select, 1)
-    r.lpush(select+":nickname", nickname)
-    r.lpush(select+":avatar", avatar)
+    uid=get_uid(nickname)
+    insertSql = "INSERT INTO vote (requestid,uid,nickname,avatar,target) " \
+                "VALUES ('%s','%s','%s','%s','%s');" \
+                % (requestid,uid,nickname,avatar,target)
+    print insertSql
+    db.set_character_set('utf8')
+    db.cursor().execute(insertSql)
+    db.commit()
     return "success"
 
 
@@ -106,8 +102,8 @@ def info_detail():
     return json.dumps(results)
 
 
-@app.route('/vote-collect', methods=['POST', 'GET'])
-def vote_collect():
+@app.route('/vote-check', methods=['POST', 'GET'])
+def vote_check():
     import sys
     reload(sys)
     sys.setdefaultencoding('utf-8')
@@ -120,15 +116,16 @@ def vote_collect():
     deadline = request.json['deadline']
     des = request.json['des']
     para1 = request.json['anonymous']
-    para2 = request.json['mutivote']
-    para = str(para1 +";" +para2)
+    # para2 = request.json['mutivote']
+    para =para1
     type = 1  # pri = request.json['pri']
     uid = get_uid(nickname)
-    id = str(timestamp) + str(uid)
+    id = request.json['id']
     db = get_connection()
     insertSql = "INSERT INTO request (id,openid,nickname,collect,time,icon," \
-                "deadline,type,title,des,para)"\
-                "VALUES ('%s','%s','%s','%s',now(),'%s','%s','%s','%s','%s','%s');" %(id, uid, nickname.encode('utf8'), collect, icon, deadline, type, title, des,para)
+                "deadline,type,title,des,optional)"\
+                "VALUES ('%s','%s','%s','%s',now(),'%s','%s','%s','%s','%s','%s');" \
+                %(id, uid, nickname.encode('utf8'), collect, icon, deadline, type, title, des,para)
     db.set_character_set('utf8')
     db.cursor().execute(insertSql)
     db.commit()
@@ -179,11 +176,19 @@ def vote_detail():
     data = cursor.fetchone()
     json_data=dict()
     json_data['col']= data[2]
-    print data[2]
-    cursor.close()
-    for i in range(0,10):
-        if r.get(id+':'+str(i)):
-            json_data[id+str(i)]=r.get(id+':'+str(i))
+    json_data['deadline']=data[5]
+    choice_num=len(data[2].split(';'))-1
+    result=dict()
+    for i in range(0,choice_num):
+        result[str(i)]=[]
+    sql2 = "select * from vote where requestid='%s' " % (id)
+    cursor.execute(sql2)
+    data2= cursor.fetchall()
+    for i in data2:
+       result[str(i[5])].append(i[3])
+    for i in range (0,choice_num):
+        json_data[str(i)]=result[str(i)]
+    print json_data
     return json.dumps(json_data)
 
 @app.route('/item-get', methods=['POST', 'GET'])
@@ -263,6 +268,17 @@ def info_collect():
     id = str(timestamp) + str(uid)
     return id
 
+@app.route('/vote-collect', methods=['POST', 'GET'])
+def vote_collect():
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+    import time
+    timestamp = int(time.time())
+    nickname = request.json['nickname']
+    uid = get_uid(nickname)
+    id = str(timestamp) + str(uid)
+    return id
 
 @app.route('/info-check', methods=['POST', 'GET'])
 def info_check():
@@ -485,7 +501,7 @@ def push():
           'form_id': formid,
           'data': {
             "keyword1": {
-              "value": '填写模板内容',
+              "value": '请填写表格',
               "color": "#4a4a4a"
             },
             "keyword2": {
@@ -591,8 +607,7 @@ class push_task(object):
 
 if __name__ == '__main__':
     task=push_task(60,push)
-    task.start()
-    # Timer(60, loopfunc, ()).start()
-    app.run(host='0.0.0.0', debug=False)
+    # task.start()
+    app.run(host='0.0.0.0', debug=True)
     task.stop()
     # write_csv(['1','2','3'],[[11,22,33],[33,44,55]],'test')
