@@ -1,24 +1,34 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
+page {
+  min-height: 100%;
+  width: 100%;
+  background-color: #F9FAFA;  
+}
+
+.button{
+  display:flex;
+  background-color:#FFFFFF;
+  justify-content: center;
+  height:328rpx;
+  width:584rpx;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  border-radius: 2px;
   align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.text-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text{
+   font-weight: 600;
 }
 
-.userinfo-nickname {
-  color: #aaa;
-}
-.info {
-  margin-top: 75px;
-}
-
-.vote {
-  margin-top: 100px;
+.slogan{
+    margin-top: 86rpx;
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #7E7E7E;
+    letter-spacing: 0
 }

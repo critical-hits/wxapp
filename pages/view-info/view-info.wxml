@@ -1,0 +1,50 @@
+<view class="item">
+    <view class="column"></view>
+    <view class="container-left" >
+            <view style="height:50rpx"></view>
+            <view>
+                  <p class="title" name='title'>  {{title}}</p>
+            </view>
+            <view>
+                <view class='des'> {{des}}</view>
+            </view>
+            <view style="height:68rpx"></view>
+            <view>
+                <view wx:for="{{info_array}}"  wx:key="id" >
+                    <view style="margin-bottom:20rpx;font-size:28rpx">{{item}}</view>
+                    <view>
+                        <input class="input-info" style="margin-bottom:30rpx" disabled="disabled" value=""/>
+                    </view>
+                </view>
+            </view>
+
+
+            <view>
+                <view class="col"  wx:for="{{pic_array}}"  wx:key="id2" >
+                  <view class="item" style="margin-bottom:20rpx;font-size:28rpx">{{item}}</view>
+                  <view  class="weui-uploader__input-box item" style='background: #FAFAFA;'></view>
+                  </view>
+            </view>
+            <view style="height:0rpx"></view>
+            <view class="item font-time">
+                <view>截止时间 {{date}} {{time}}</view>
+                <!-- <view  disabled="disabled" name='date'>{{date}}</view>
+                <view  disabled="disabled" name='time'>{{time}}</view>        -->
+            </view>
+            <view style="height:80rpx"></view>
+            <view class="">
+                <button  class="button" open-type="share">转发</button>
+            </view>
+    </view>
+    <view class="column"></view>
+</view>
+        <!-- <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_switch">
+                <view class="weui-cell__bd">公开填写信息 </view>
+                <view class="weui-cell__ft">
+                    
+                    <switch wx:if="{{pri}}" checked />
+                    <switch wx:else > </switch>
+                </view>
+            </view>
+        </view> -->

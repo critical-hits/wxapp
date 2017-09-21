@@ -1,2 +1,72 @@
-<!--vote.wxml-->
-<text>vote.wxml</text>
+<form  style="height:100%;" bindsubmit="formSubmit" bindreset="formReset">
+    <view class="row">
+        <view  class="col-space" style="height:30rpx"></view>
+        <view class="container" > 
+                <view class="text-line">
+                    <input name='title' placeholder-class="font-place title"  placeholder="标题" />
+                </view>
+                <view style="height:50rpx"></view>
+                <input name='des' class="text-line" placeholder-class="font-place des" placeholder="描述（选填）" />
+
+                <view style="height:24rpx"></view>
+                <view class="{{flag[index]==0?'hide':''}}" wx:for="{{flag}}" wx:key="id" >
+                        <view class="item">
+                            <image style="margin-top:8rpx;width:36rpx; height:36rpx;" src="{{icon_remove}}"  id="{{index}}" bindtap='delItem'></image>
+                            <view style="width:18rpx"></view>
+                            <input class="text-line" style="width:614rpx" placeholder-class="font-place collect" placeholder="投票选项" name='{{index}}'/>                        </view>
+                        <view style="height:24rpx"></view>
+                </view>
+                <view class="item" style="justify-content:space-between;margin-bottom:50rpx">
+                    <view class="item">
+                        <image bindtap="addItem" style="margin-top:8rpx;width:34rpx; height:36rpx;" src="{{icon_add}}"></image>
+                        <view style="width:18rpx"></view>
+
+                        <view class="collect" bindtap="addItem" >添加投票项</view>
+                    </view>
+                </view>
+        </view>
+        
+        <view  class="col-space" style="height:32rpx"></view>
+    </view>
+    <view style="height:30rpx;background-color:#F9FAFA"></view>
+    <view class="col-bot collect" >
+          <!-- <view class="item-bot height">
+                <view  class="margin">支持多选</view>
+                <view class="margin">
+                    <switch color="#6e707C" name="mutivote" />
+                </view>
+          </view> -->
+          <view style="height:4rpx;background-color:#F9FAFA"></view>
+          <view class="item-bot height">
+                <view class="margin">匿名投票</view>
+                <view>
+                    <switch color="#6e707C"  class="margin" name="anonymous"/>
+                </view>
+          </view>
+          <view style="height:4rpx;background-color:#F9FAFA"></view>
+          <view class="item-bot height">
+          <view style="width:50rpx"></view>
+
+               <view class="row">
+                <view>截止时间</view>
+                <view style="display:flex;flex-direction:row" >
+                  <picker name='date_select' mode="date" value="{{date}}" start="{{date}}"  bindchange="bindDateChange">
+                      <view name='date_select'>{{date_select}}</view>
+                  </picker>
+                  <view style="width:30rpx"></view>
+                  <picker  name='time_select' mode="time" value="{{time}}" start="{{time}}"  bindchange="bindTimeChange">
+                      <view  name='time_select'>{{time_select}}</view>
+                  </picker>
+                </view>
+            </view>
+          <view style="width:50rpx"></view>
+
+          </view>
+    </view>
+    <view class="foot ">
+        <view>
+          <button class="button space" form-type="submit">完成</button>
+        </view>
+    </view>
+</form>
+<view style="height:190rpx;background-color:#F9FAFA"></view> 

@@ -1,0 +1,77 @@
+<view class="item">
+    <view class="column"></view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="container-left" >
+            <view style="height:50rpx"></view>
+            <view>
+                  <p class="title" name='title'>  {{title}}</p>
+            </view>
+            <view style="height:20rpx"></view>
+            <view>
+                <view class='des'> {{des}}</view>
+            </view>
+            <view style="height:68rpx"></view>
+            <view>
+                <view wx:for="{{info_array}}"  wx:key="id" >
+                    <view>{{item}}</view>
+                    <view>
+                        <input class="input-info" name="{{index}}" />
+                    </view>
+                </view>
+                <view >
+                    <view>{{pic_array}}</view>
+                    <view>
+                         <view class="weui-uploader__files" id="uploaderFiles">
+                                <block wx:for="{{files}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                                    </view>
+                                </block>
+                            </view>
+                            <view class="weui-uploader__input-box" style="background:#FAFAFA" >
+                              <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                            </view>
+                    </view>
+                </view>
+            </view>
+            <view style="height:20rpx"></view>
+            <view class="font-time">
+                <view>截止时间 {{date}} {{time}}</view>    
+            </view>
+            <view style="height:80rpx"></view>
+            <view class="item">
+                <button  class="button bg-white" bindtap="mention" data-statu="open">稍后再填</button>
+            <view style="width:20rpx"></view>
+                <button  class="button" form-type="submit">提交</button>
+            </view>
+    </view>
+    </form>
+    <view class="column"></view>
+    
+    <toast hidden="{{hiddenToast}}" duration="3000" bindchange="toastHidden" >{{toast_msg}}</toast>
+    
+    <view class="drawer_screen" bindtap="mention" data-statu="close" wx:if="{{showModalStatus}}"></view>  
+<!--content-->  
+<!--使用animation属性指定需要执行的动画-->  
+<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">  
+  
+  <!--drawer content-->  
+      <form name='service' report-submit bindsubmit='submit_mention'>
+      <view class="drawer_title">{{hour}}小时后再填</view>
+      <input name='hour' style="display:none" value="{{hour}}"></input>
+      <view> 
+        <view class="container">
+          <picker-view style="width: 100%; height: 300rpx;  margin-left:550rpx" value="{{value}}" bindchange="bindChange">
+            <picker-view-column>
+              <view wx:for="{{hours}}"  wx:key="hour" style="line-height: 100rpx font-size:16">{{item}}小时</view>
+            </picker-view-column>
+          </picker-view>
+      </view>
+      <button  style="margin-top:10rpx margin-bottom:10rpx"class="button" bindtap="mention" data-statu="close"  form-type="submit">确定</button>
+  </view>  
+  
+  
+</form>
+</view> 
+<toast hidden="{{hiddenToast}}" duration="1500" bindchange="toastHidden" >{{toast_msg}}</toast>
+</view>

@@ -3,28 +3,42 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/info/info",
-    "pages/vote/vote"
+    "pages/vote/vote",
+    "pages/view-info/view-info",
+    "pages/edit-info/edit-info",
+    "pages/view-vote/view-vote",
+    "pages/personal/personal",
+    "pages/edit-vote/edit-vote",
+    "pages/personal-edit/personal-edit",
+    "pages/personal-view/personal-view",
+    "pages/personal-item/personal-item",
+    "pages/personal-detail/personal-detail",
+    "pages/result-vote/result-vote"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#F9FAFA",
     "navigationBarTitleText": "集些",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
-    "color": "#ddd",
-    "borderStyle": "black",
-    "selectedColor": "#1296db",
+    "color": "black",
+    "borderStyle": "white",
+    "selectedColor": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "新建",
+        "selectedIconPath": "pages/images/icon1.png",
+        "iconPath": "pages/images/icon2.png",
+        "pagePath": "pages/index/index"
       },
-
       {
-        "pagePath": "pages/logs/logs",
-        "text": "个人中心"
+        "text": "我的",
+        "iconPath": "pages/images/icon4.png",
+        "selectedIconPath": "pages/images/icon3.png",
+        "pagePath": "pages/personal/personal"
       }
     ]
-  }
+    }
 }

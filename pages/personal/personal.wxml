@@ -1,0 +1,82 @@
+<view class="item">
+  <view class="column space-width"></view>
+  <view class="container-left">
+    <view style="height:46rpx"></view>
+    <view wx:for="{{request_array}}" wx:key="id">
+      <view wx:if="{{item.dead=='true'}}">
+        <view class="bg row" bindtap="itemClick" data-hi="{{index}}">
+          <view style="margin-top:48rpx;margin-left:40rpx">
+            <view class="title dead">
+              {{item.title}}
+            </view>
+            <view class="num dead">
+              <view wx:if="{{item.type==0}}">
+                <view wx:if="{{item.num}}">
+                  共有{{item.num}}人填写
+                </view>
+                <view wx:else>
+                  暂无人填写
+                </view>
+              </view>
+              <view wx:if="{{item.type==1}}">
+                <view wx:if="{{item.num}}">
+                  共有{{item.num}}人投票
+                </view>
+                <view wx:else>
+                  暂无人投票
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="num dead" style="margin-top:74rpx; margin-right:40rpx">已截止</view>
+        </view>
+        <view class="item-edit bg-edit {{flag[index]==0?'hide':'display'}}">
+          <view style="margin-left:80rpx" bindtap="edit"> 编辑</view>
+          <view wx:if="{{item.type==0}}" bindtap="view" id="{{index}}"> 查看</view>
+          <view wx:if="{{item.type==1}}" bindtap="view_vote" id="{{index}}"> 查看</view>
+          <view style="margin-right:80rpx" bindtap="del" id="{{index}}"> 删除</view>
+        </view>
+      </view>
+    
+      <view wx:if="{{item.dead=='false'}}"> 
+        <view bindtap="itemClick" data-hi="{{index}}">
+          <view class="bg row-vertical">
+            <view style="margin:40rpx">
+              <view class="title">
+                {{item.title}}
+              </view>
+              <view class="num">
+                <view wx:if="{{item.type==0}}">
+                <view wx:if="{{item.num}}">
+                  共有{{item.num}}人填写
+                </view>
+                <view wx:else>
+                  暂无人填写
+                </view>
+              </view>
+              <view wx:if="{{item.type==1}}">
+                <view wx:if="{{item.num}}">
+                  共有{{item.num}}人投票
+                </view>
+                <view wx:else>
+                  暂无人投票
+                </view>
+              </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="item-edit bg-edit {{flag[index]==0?'hide':'display'}}">
+            <view style="margin-left:80rpx" bindtap="edit"> 编辑</view>
+            <view wx:if="{{item.type==0}}" bindtap="view" id="{{index}}"> 查看</view>
+            <view wx:if="{{item.type==1}}" bindtap="view_vote" id="{{index}}"> 查看</view>
+            <view style="margin-right:80rpx" bindtap="del" id="{{index}}"> 删除</view>
+        </view>
+      </view>
+      <view style="height:24rpx"></view>
+    </view>
+  </view>
+<view class="column space-width"></view>
+    <toast hidden="{{hiddenToast}}" duration="1500" bindchange="toastHidden" >{{toast_msg}}</toast>
+    
+</view>

@@ -1,0 +1,40 @@
+<view class="item">
+    <view class="column"></view>
+    <view class="container-left" >
+            <view style="height:50rpx"></view>
+            <view class="item" style="justify-content:space-between">
+                  <p class="title" name='title'>  {{title}}</p>
+                  <view style="margin-top:16rpx">
+                      <view class="font-muti" wx:if="{{anonymous}}">【匿名】</view>
+                      <view class="font-muti" wx:elif="{{!anonymous}}">【公开】</view>
+                  </view>
+            </view>
+            <view>
+                <view class='des'> {{des}}</view>
+            </view>
+            <view style="height:68rpx"></view>
+            <view>
+                <view wx:for="{{vote_array}}"  wx:key="id" >
+                    <view>
+                        <view id="{{index}}" class="input-info {{flag[index]==1?'border':'border-ori'}}"  bindtap="voteClick" data-hi="{{index}}">
+                        {{item}}
+                        </view>
+                    </view>
+                    <view style="height:24rpx"></view>
+                </view>
+            </view>
+            <view style="height:20rpx"></view>
+            <view class="item font-time">
+                <view>截止时间 {{date}} {{time}}</view>
+                <!-- <view  disabled="disabled" name='date'>{{date}}</view>
+                <view  disabled="disabled" name='time'>{{time}}</view>        -->
+            </view>
+            <view style="height:80rpx"></view>
+            <view class="">
+                <button  class="button" bindtap="vote">投票</button>
+            </view>
+    </view>
+    <view class="column"></view>
+      <toast hidden="{{hiddenToast}}" duration="1500" bindchange="toastHidden" >{{toast_msg}}</toast>
+</view>
+       

@@ -1,0 +1,64 @@
+page {
+  min-height: 100%;
+  width: 100%;
+  background-color: #F9FAFA;  
+}
+
+.text-line{
+  background: #FFF;
+  border-radius: 2px;
+}
+.item{
+  display: flex;
+  flex-direction: row;
+}
+.column{
+  width:50rpx;
+  display: flex;
+  flex-direction: column;
+  
+}
+.font-place{
+  color:#DBDEE4;
+  letter-spacing: 0;
+}
+
+.title{
+  font-size: 24px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.des{
+  opacity: 0.6;
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.collect{
+  font-size:  16px
+}
+.input-info{
+  height: 86rpx;
+  width:650rpx;
+  background: #FFF;
+  border-radius: 2px;
+}
+.font-time{
+  font-size: 12px;
+  color: #B8BECA;
+  letter-spacing: 0;
+}
+.font-muti{
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+.border-ori{
+  border-left:8rpx solid;
+  border-left-color: #FFF;
+}
+.border{
+  border-left:8rpx solid;
+  border-left-color: #FDD64F;
+}

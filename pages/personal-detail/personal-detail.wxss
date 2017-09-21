@@ -1,0 +1,71 @@
+/* personal-detail.wxss */
+page {
+  min-height: 100%;
+  width: 100%;
+  background-color: #FFF;  
+}
+.row{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.column{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.col-space{
+  display: flex;
+  width: 50rpx;
+  flex-direction: column; 
+}
+.item{
+  display: flex;
+  width: 100%;
+  flex-direction: row; 
+  align-items: center;
+  justify-content:flex-start;
+
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinfo-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%; 
+}
+.userinfo-nickname{
+  font-size: 20px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.info{
+  width:100%;
+  font-size:16px;
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: 0;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content:flex-start;
+}
+.data{
+    width:100%;
+    font-size: 16px;
+    color: #4A4A4A;
+    letter-spacing: 0;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content:flex-start;
+}
+.dot{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}

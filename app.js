@@ -24,6 +24,10 @@ App({
   },
 
   globalData: {
+    wxData:{
+      appid: 'wx5ea5e1393e7bb824',
+      secret: 'd22572d8c73ac4cc361788a0d66a3fe8',
+    },
     userInfo: null
   }
 })

@@ -1,0 +1,125 @@
+page {
+  min-height: 100%;
+  width: 100%;
+  background-color: #FFF;  
+}
+.text-line{
+  background: #FAFAFA;
+  border-radius: 2px;
+}
+.item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.column{
+  width:50rpx;
+  display: flex;
+  flex-direction: column;
+  
+}
+.font-place{
+  color:#DBDEE4;
+  letter-spacing: 0;
+}
+
+.title{
+  font-weight: 600;
+  font-size: 24px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.des{
+  opacity: 0.6;
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.collect{
+  font-size:  16px
+}
+.collect-pic{
+  margin-top:6rpx;
+  font-size: 13px;
+  color: #5B739D;
+  letter-spacing: 0;
+}
+.submit-btn{
+  width:302rpx;
+  height: 86rpx;
+  background: #FDD64F;
+  border-radius: 4px;
+}
+.input-info{
+  height: 86rpx;
+  width:650rpx;
+  background: #FAFAFA;
+  border-radius: 2px;
+}
+.font-time{
+  font-size: 12px;
+  color: #B8BECA;
+  letter-spacing: 0;
+}
+.bg-white{
+  background-color: #F5F5F5;
+}
+.drawer_screen {  
+  width: 100%;  
+  height: 100%;  
+  position: fixed;  
+  top: 0;  
+  left: 0;  
+  z-index: 1000;  
+  background: #000;  
+  opacity: 0.5;  
+  overflow: hidden;  
+}  
+  
+/*content*/  
+.drawer_box {  
+  width: 650rpx;
+  height:550rpx;
+  overflow: hidden;  
+  position: fixed;  
+  top: 50%;  
+  left: 0;  
+  z-index: 1001;  
+  background: #FFFFFF;  
+  margin: -150px 50rpx 0 50rpx;  
+  border-radius: 3px;  
+}  
+  
+.drawer_title{  
+  padding:15px;  
+  font: 20px "microsoft yahei";  
+  text-align: center;  
+}  
+.drawer_content {  
+  height: 210rpx;  
+  overflow-y: scroll; /*超出父盒子高度可滚动*/  
+}  
+.input_base {  
+    border: 2rpx solid #ccc;  
+    padding-left: 10rpx;  
+    margin-right: 50rpx;  
+}  
+.input_h30{  
+    height: 30px;  
+    line-height: 30px;  
+}  
+.input_h60{  
+    height: 60px;  
+}  
+.input_view{  
+    font: 12px "microsoft yahei";  
+    background: #fff;  
+    color:#000;  
+    line-height: 30px;  
+}  
+  
+input {  
+    font: 12px "microsoft yahei";  
+    background: #fff;  
+    color:#000 ;  
+}  

@@ -1,0 +1,56 @@
+page {
+  min-height: 100%;
+  width: 100%;
+  background-color: #FFF;  
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinfo-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%; 
+}
+
+.userinfo-nickname {
+  font-size: 18px;
+  color: #000000;
+  letter-spacing: 0;
+}
+.icon{
+  width:18rpx;
+  height:28rpx;
+}
+.row{
+  display: flex;
+  width: 100%;
+  flex-direction: row; 
+  justify-content: space-between;
+  align-content:space-between;
+}
+.column{
+  display: flex;
+  width: 100%;
+  flex-direction: column; 
+}
+.column-space{
+  display: flex;
+  width: 50rpx;
+  flex-direction: column; 
+}
+.item{
+  display: flex;
+  width: 100%;
+  flex-direction: row; 
+}
+.icon-pos{
+   align-items: flex-end;
+   justify-content: center;
+}
+.user-pos{
+    align-items:center;
+    justify-content: flex-start;
+}
+  

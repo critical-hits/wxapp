@@ -6,6 +6,9 @@ Page({
   //json datatype
   data: {
     userInfo: {},
+    icon_collect:'/pages/images/info.png',
+    icon_vote:'/pages/images/vote.png',
+    icon_oval:'/pages/images/oval.png'
   },
   //事件处理函数
   bindInfo: function () {
@@ -17,6 +20,11 @@ Page({
     wx.navigateTo({
       url: "../vote/vote"
     })
+  },
+  onPullDownRefresh: function () {
+    console.log("refresh")
+    this.onLoad()
+    wx.stopPullDownRefresh()
   },
   onLoad: function () {
     console.log('onLoad')

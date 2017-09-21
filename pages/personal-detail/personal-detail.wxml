@@ -1,0 +1,50 @@
+<!--personal-detail.wxml-->
+<view class="row">
+      <view class="col-space"></view>
+      <view class="column">
+          <view style="height:42rpx"></view>
+          <view class="item">
+                <image class="userinfo-avatar" src="{{userInfo.avatar}}" wx:if="{{userInfo.avatar}}"background-size="cover"></image>   
+              <view class="column" style="width:32rpx"></view>
+              <text class="userinfo-nickname">{{userInfo.nickname}}</text>
+          </view>
+          <view style="height:74rpx"></view>
+          <block wx:for="{{col_array}}" wx:key="id">            
+              <view class="info">
+                    <view  class="dot">
+                        <image  style="width:8rpx;height:8rpx" src="{{dot}}"></image>
+                    </view>
+                    <view>{{item}}</view>
+              </view>
+              <view class="data">
+                    <view style="width:54rpx"></view>
+                    <view>{{info_array[index]}}</view>
+            </view>
+              <view style="height:30rpx"></view>
+          </block>
+          
+          <view class="info">
+                    <view  class="dot">
+                        <image  style="width:8rpx;height:8rpx"  wx:if="{{pic!=''}}" src="{{dot}}"></image>
+                    </view>
+                    <view >{{pic}}</view>
+              </view>
+              <view class="data">
+                    <view style="width:54rpx"></view>
+                    <view>
+                    <view class="weui-uploader__files" id="uploaderFiles" style="margin-top:20rpx">
+                                <block wx:for="{{pic_info}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                                    </view>
+                                </block>
+                            </view>
+
+                            </view>
+          </view>
+          <view style="height:30rpx"></view>
+
+
+      </view>
+      <view class="col-space"></view>
+</view>

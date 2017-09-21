@@ -1,15 +1,32 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  <p class="slogan">群成员信息收集与管理小助手</p>
+  <view style="height:110rpx"></view>
+  <view class="container button" bindtap="bindInfo" style="margin-right:15rpx">
+      <view class="text-icon">
+            <view>
+                <image style="width:154rpx; height:134rpx;" src="{{icon_collect}}"></image>
+            </view>
+            <view>
+              <text style="margin-left:30rpx;" class="text">收集信息</text>
+            </view>
+            <view>
+              <image style="width:12rpx;height:12rpx;margin-left:6rpx" src="{{icon_oval}}"></image>
+            </view>     
+      </view>
   </view>
-
-  <view class="info">
-      <button bindtap="bindInfo"> 信息收集 </button>
-  </view>
-  
-  <view class="vote">
-      <button bindtap="bindVote"> 投票收集 </button>
+  <view style="height:70rpx"></view>
+  <view class="container button" bindtap="bindVote">
+      <view class="text-icon" style="margin-right:15rpx">
+            <view>
+                <image style="width:180rpx; height:124rpx;" src="{{icon_vote}}"></image>
+            </view>
+            <view>
+              <text class="text">收集投票</text>
+            </view>
+            <view>
+              <image style="width:12rpx;height:12rpx;margin-left:6rpx" src="{{icon_oval}}"></image>
+            </view>   
+      </view>
   </view>
 </view>

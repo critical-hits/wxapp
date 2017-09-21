@@ -1,0 +1,22 @@
+<!--personal-view.wxml-->
+<view class="item">
+    <view class="column-space"></view>
+    <view class="container-left" style="margin-top:62rpx;">
+          <view class="column" wx:for="{{userInfos}}"  wx:key="id" >
+              <view class="row"  id="{{index}}" bindtap="detail">
+                    <view class="column">
+                      <view class="row user-pos">
+                          <image class="userinfo-avatar" src="{{item.avatar}}" background-size="cover"></image> 
+                          <view class="column" style="width:32rpx"></view>
+                          <text class="userinfo-nickname">{{item.nickname}}</text>
+                      </view>
+                    </view>
+                    <view class="column icon-pos"> 
+                        <image class="icon" src="{{icon}}" ></image>
+                    </view>
+                </view>
+              <view class="row" style="height:50rpx"></view>
+          </view>
+    </view>
+    <view class="column-space"></view>
+</view>

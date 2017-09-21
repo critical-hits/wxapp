@@ -1,0 +1,77 @@
+/* personal.wxss */
+page {
+  min-height: 100%;
+  width: 100%;
+  background-color: #F9FAFA;  
+}
+.row{
+  display: flex;
+  width: 100%;
+  flex-direction: row; 
+  justify-content: space-between;
+  align-content:space-between;
+}
+.row-vertical{
+  display: flex;
+  flex-direction: row; 
+  align-content:center;
+}
+.item{
+  display: flex;
+  flex-direction: row;
+}
+.item-edit{
+  display: flex;
+  width:100%;
+  height:100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.column{
+  display: flex;
+  flex-direction: column; 
+}
+.space-width{
+    width:50rpx;
+}
+.bg{
+  width:100%;
+  height: 184rpx;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+}
+
+.bg-edit{
+  font-size: 16px;
+  color: #000000;
+  letter-spacing: 0;
+  width:100%;
+  height: 96rpx;
+  background: #FFFFFF;
+  box-shadow: 0 1px 15px 0 rgba(0,0,0,0.10);
+}
+.title{
+  font-size: 18px;
+  color: #383831;
+  letter-spacing: 0;
+}
+
+.dead{
+  opacity: 0.4
+}
+.num{
+  font-size: 13px;
+  color: #383831;
+  letter-spacing: 0;
+}
+.hide{
+  display:none;
+}
+.display{
+  display: flex;
+}
+.border{
+  border-left:8rpx solid;
+  border-left-color: #FDD64F;
+}
