@@ -23,7 +23,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key='123'
 r = redis.Redis(host="localhost")
 smtp_server = "smtp.163.com"
-from_addr = "wxapp_jixie@163.com"
+from_addr = "@163.com"
 password = "qwert1234"
 
 @app.route('/')
